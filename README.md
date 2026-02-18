@@ -1,73 +1,25 @@
-# React + TypeScript + Vite
+# 🚗 BMW Şarj Asistanı (BMW Charge Assistant)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+BMW elektrikli araç kullanıcıları için tasarlanmış, şarj süresini, maliyetini ve verimliliğini anlık olarak hesaplayan modern bir web ve mobil (APK) uygulamasıdır.
 
-Currently, two official plugins are available:
+## ✨ Özellikler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Geniş Model Desteği:** iX1, i4, i5, iX, i7 ve i3 modelleri için özel batarya kapasiteleri ve şarj eğrileri.
+- **Esnek Şarj Tipleri:** - **AC Şarj:** 1 Faz veya 3 Faz desteği ile ev tipi/Wallbox hesaplamaları.
+  - **DC Şarj:** İstasyon gücüne göre %80 sonrası yavaşlamayı hesaba katan akıllı algoritma.
+- **Maliyet ve CO2 Analizi:** Şarjın TL bazlı maliyeti ve benzinli araçlara kıyasla CO2 tasarrufu.
+- **Zaman Yönetimi:** Tahmini şarj bitiş saatini gün ve saat olarak gösterir.
+- **Şarj Geçmişi:** Yapılan hesaplamaları yerel hafızaya (LocalStorage) kaydeder.
 
-## React Compiler
+## 🛠️ Teknolojiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend:** React + Vite + TypeScript
+- **Styling:** Tailwind CSS + Lucide Icons
+- **Animasyonlar:** Framer Motion
+- **Otomasyon:** GitHub Actions (Otomatik APK Build)
 
-## Expanding the ESLint configuration
+## 📦 Kurulum ve Çalıştırma
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Projeyi klonlayın:
+   ```bash
+   git clone [https://github.com/Shopyzeka/bmw-Sarj.git](https://github.com/Shopyzeka/bmw-Sarj.git)
