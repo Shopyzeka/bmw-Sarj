@@ -21,7 +21,7 @@ export function useCalculator() {
     currentPercentage: 20,
     targetPercentage: 80,
     amperage: 16,
-    phase: 1, // Varsayılan Monofaz
+    phase: 1,
     dcPower: 150,
     electricityPrice: DEFAULT_ELECTRICITY_PRICE,
     startTime: new Date().toISOString(),
@@ -72,9 +72,9 @@ export function useCalculator() {
     let efficiency = AC_EFFICIENCY;
 
     if (chargeType === 'AC') {
-      // Trifaz Hesaplaması: Amper * Volt * Faz Sayısı
       const calculatedPower = (amperage * VOLTAGE_AC * phase) / 1000; 
       grossPower = Math.min(calculatedPower, maxACPower);
+      efficiency = AC_EFFICIENCY;
     } else {
       const stationPower = Math.min(dcPower, maxDCPower);
       const avgMultiplier = (getDCPowerMultiplier(currentPercentage) + getDCPowerMultiplier(targetPercentage)) / 2;
@@ -83,6 +83,7 @@ export function useCalculator() {
     }
 
     const netPower = grossPower * efficiency;
+    const lossPower = grossPower - netPower; // Hatayı burayı ekleyerek düzelttik
     const duration = Math.round((energyNeeded / netPower) * 60);
     
     const startDate = new Date(startTime);

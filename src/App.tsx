@@ -115,10 +115,16 @@ function App() {
               <StartTimeSelector startTime={startTimeDate} onChange={(time) => updateState('startTime', time.toISOString())} />
               <ResultCard result={result} chargeType={state.chargeType} />
 
-              <div className="flex gap-3 mt-6">
-                <Button variant="outline" onClick={handleReset} className="flex-1 rounded-xl">Sıfırla</Button>
-                <Button onClick={() => setIsSaveDialogOpen(true)} className="flex-1 rounded-xl bg-blue-600">Kaydet</Button>
-              </div>
+             <div className="flex gap-3 mt-6">
+  <Button variant="outline" onClick={handleReset} className="flex-1 rounded-xl">
+    <RotateCcw className="w-4 h-4 mr-2" /> {/* Kullanılmayan RotateCcw buraya eklendi */}
+    Sıfırla
+  </Button>
+  <Button onClick={() => setIsSaveDialogOpen(true)} className="flex-1 rounded-xl bg-blue-600">
+    <Save className="w-4 h-4 mr-2" /> {/* Kullanılmayan Save buraya eklendi */}
+    Kaydet
+  </Button>
+</div>
             </div>
           </motion.div>
 
