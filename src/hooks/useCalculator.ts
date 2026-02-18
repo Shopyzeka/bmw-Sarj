@@ -10,7 +10,7 @@ import {
   type CalculationResult 
 } from '@/types';
 
-const VOLTAGE_AC = 220; // Türkiye tek faz gerilimi
+const VOLTAGE_AC = 220; 
 const AC_EFFICIENCY = 0.90;
 const DC_EFFICIENCY = 0.94;
 
@@ -21,6 +21,7 @@ export function useCalculator() {
     currentPercentage: 20,
     targetPercentage: 80,
     amperage: 16,
+    phase: 1, // Varsayılan Monofaz
     dcPower: 150,
     electricityPrice: DEFAULT_ELECTRICITY_PRICE,
     startTime: new Date().toISOString(),
@@ -49,7 +50,7 @@ export function useCalculator() {
 
   const calculateResult = useCallback((): CalculationResult => {
     const { batteryCapacity, maxACPower, maxDCPower } = selectedModel;
-    const { currentPercentage, targetPercentage, chargeType, amperage, dcPower, electricityPrice, startTime } = state;
+    const { currentPercentage, targetPercentage, chargeType, amperage, phase, dcPower, electricityPrice, startTime } = state;
 
     if (targetPercentage <= currentPercentage) {
       return {
@@ -71,27 +72,23 @@ export function useCalculator() {
     let efficiency = AC_EFFICIENCY;
 
     if (chargeType === 'AC') {
-      const calculatedPower = (amperage * VOLTAGE_AC) / 1000; // Tek faz (220V)
+      // Trifaz Hesaplaması: Amper * Volt * Faz Sayısı
+      const calculatedPower = (amperage * VOLTAGE_AC * phase) / 1000; 
       grossPower = Math.min(calculatedPower, maxACPower);
     } else {
       const stationPower = Math.min(dcPower, maxDCPower);
-      // Average multiplier for the charging range
       const avgMultiplier = (getDCPowerMultiplier(currentPercentage) + getDCPowerMultiplier(targetPercentage)) / 2;
       grossPower = stationPower * avgMultiplier;
       efficiency = DC_EFFICIENCY;
     }
 
     const netPower = grossPower * efficiency;
-    const lossPower = grossPower - netPower;
-    const hours = energyNeeded / netPower;
-    const duration = Math.round(hours * 60);
+    const duration = Math.round((energyNeeded / netPower) * 60);
     
-    // Use startTime from state instead of Date.now()
     const startDate = new Date(startTime);
     const finishTime = new Date(startDate.getTime() + duration * 60000);
     const cost = energyNeeded * electricityPrice;
 
-    // CO2 calculation
     const evRange = (energyNeeded / AVG_CONSUMPTION_EV) * 100;
     const gasolineNeeded = (evRange / 100) * AVG_CONSUMPTION_GASOLINE;
     const co2Saved = gasolineNeeded * CO2_PER_LITER_GASOLINE;
@@ -110,8 +107,6 @@ export function useCalculator() {
   }, [selectedModel, state, getDCPowerMultiplier]);
 
   const result = useMemo(() => calculateResult(), [calculateResult]);
-
-  // Get current startTime as Date object
   const startTimeDate = useMemo(() => new Date(state.startTime), [state.startTime]);
 
   return {

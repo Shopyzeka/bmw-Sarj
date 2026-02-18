@@ -29,6 +29,7 @@ export interface CalculatorState {
   currentPercentage: number;
   targetPercentage: number;
   amperage: number;
+  phase: number; // Yeni eklendi: 1 veya 3
   dcPower: number;
   electricityPrice: number; // TL/kWh
   startTime: string; // ISO string
@@ -77,8 +78,8 @@ export const DC_CHARGING_CURVE = [
   { soc: 100, multiplier: 0.10 },
 ];
 
-export const DEFAULT_ELECTRICITY_PRICE = 2.5; // TL/kWh
-export const GASOLINE_PRICE = 40; // TL/L
-export const AVG_CONSUMPTION_GASOLINE = 8; // L/100km
-export const AVG_CONSUMPTION_EV = 18; // kWh/100km
-export const CO2_PER_LITER_GASOLINE = 2.3; // kg CO2 per liter
+export const DEFAULT_ELECTRICITY_PRICE = 2.5; 
+export const GASOLINE_PRICE = 40; 
+export const AVG_CONSUMPTION_GASOLINE = 8; 
+export const AVG_CONSUMPTION_EV = 18; 
+export const CO2_PER_LITER_GASOLINE = 2.3;
