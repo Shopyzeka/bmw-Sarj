@@ -15,13 +15,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22 # Hata veren sürüm 22'ye yükseltildi
 
       - name: Install Dependencies
         run: npm install
 
       - name: Build Web Project
-        run: npx vite build 
+        # İzin hatasını (Permission denied) bu satırla çözüyoruz
+        run: |
+          chmod +x node_modules/.bin/vite
+          npm run build
 
       - name: Install Capacitor Android
         run: |
