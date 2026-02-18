@@ -2,7 +2,7 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ main ] # Eğer dal ismin 'master' ise burayı 'master' yap
+    branches: [ main ]
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Build Web Project
-        run: npm run build
+        run: npx vite build 
 
       - name: Install Capacitor Android
         run: |
